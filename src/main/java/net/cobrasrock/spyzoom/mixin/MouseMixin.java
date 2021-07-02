@@ -16,7 +16,7 @@ public abstract class MouseMixin {
     private void updateMouse(CallbackInfo info) {
 
         if(MinecraftClient.getInstance().player != null) {
-            if (MinecraftClient.getInstance().player.isUsingSpyglass()) {
+            if (MinecraftClient.getInstance().player.isUsingSpyglass() && MinecraftClient.getInstance().options.getPerspective().isFirstPerson()) {
 
                 double f = MinecraftClient.getInstance().options.mouseSensitivity * 0.6000000238418579D + 0.20000000298023224D;
                 double g = f * f * f;

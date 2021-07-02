@@ -13,7 +13,7 @@ public class PlayerInventoryMixin {
 	@Inject(at = @At("HEAD"), method = "scrollInHotbar", cancellable = true)
 	private void scrollInHotbar(double scrollAmount, CallbackInfo info) {
 		if(MinecraftClient.getInstance().player != null) {
-			if (MinecraftClient.getInstance().player.isUsingSpyglass()) {
+			if (MinecraftClient.getInstance().player.isUsingSpyglass() && MinecraftClient.getInstance().options.getPerspective().isFirstPerson()) {
 				//zooms in/out
 				if (scrollAmount > 0.0D) {
 					SpyZoom.zoom *= 9.0 /10;

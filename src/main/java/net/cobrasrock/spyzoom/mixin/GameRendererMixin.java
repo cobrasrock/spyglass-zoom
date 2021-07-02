@@ -15,7 +15,7 @@ public abstract class GameRendererMixin {
     @Inject(at = @At("HEAD"), method = "updateMovementFovMultiplier", cancellable = true)
     private void updateMovementFovMultiplier(CallbackInfo info) {
         if(MinecraftClient.getInstance().player != null) {
-            if (MinecraftClient.getInstance().player.isUsingSpyglass()) {
+            if (MinecraftClient.getInstance().player.isUsingSpyglass() && MinecraftClient.getInstance().options.getPerspective().isFirstPerson()) {
 
                 setLastMovementFovMultiplier(getFovMultiplier());
                 setFovMultiplier(getFovMultiplier() + (SpyZoom.zoom - getFovMultiplier()) * 0.5F);
