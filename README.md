@@ -1,9 +1,5 @@
-# Fabric Example Mod
+# Spyglass Zoom
 
-## Setup
+![Demonstration](https://i.imgur.com/4mlWC03.gif "Mod in Action")
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+This mod enhances the spyglass by allowing you to zoom in or out using the scrollwheel.
