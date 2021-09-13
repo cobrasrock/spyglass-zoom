@@ -1,8 +1,10 @@
 package net.cobrasrock.spyzoom.mixin;
 
 import net.cobrasrock.spyzoom.SpyZoom;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.option.GameOptions;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,37 +16,37 @@ public abstract class MouseMixin {
     //lowers mouse sensitivity
     @Inject(at = @At("HEAD"), method = "updateMouse", cancellable = true)
     private void updateMouse(CallbackInfo info) {
+        ClientPlayerEntity player = SpyZoom.instance.player;
+        GameOptions options = SpyZoom.instance.options;
 
-        if(MinecraftClient.getInstance().player != null) {
-            if (MinecraftClient.getInstance().player.isUsingSpyglass() && MinecraftClient.getInstance().options.getPerspective().isFirstPerson()) {
+        if(player == null) return;
 
-                double f = MinecraftClient.getInstance().options.mouseSensitivity * 0.6000000238418579D + 0.20000000298023224D;
-                double g = f * f * f;
+        if (player.isUsingSpyglass() && options.getPerspective().isFirstPerson()) {
 
-                //janky calculation that probably isn't right but works
-                double zoom = ((-20.0/9 * (SpyZoom.zoom * SpyZoom.zoom)) + (92.0/9 * SpyZoom.zoom));
+            double f = options.mouseSensitivity * 0.6000000238418579D + 0.20000000298023224D;
+            double g = f * f * f;
 
-                g *= zoom;
+            //janky calculation that probably isn't right but works
+            double zoom = ((-20.0/9 * (SpyZoom.zoom * SpyZoom.zoom)) + (92.0/9 * SpyZoom.zoom));
 
-                double o = getCursorDeltaX() * g;
-                double p = getCursorDeltaY() * g;
+            g *= zoom;
 
-                setCursorDeltaX(0.0D);
-                setCursorDeltaY(0.0D);
+            double o = getCursorDeltaX() * g;
+            double p = getCursorDeltaY() * g;
 
-                int q = 1;
-                if (MinecraftClient.getInstance().options.invertYMouse) {
-                    q = -1;
-                }
+            setCursorDeltaX(0.0D);
+            setCursorDeltaY(0.0D);
 
-                MinecraftClient.getInstance().getTutorialManager().onUpdateMouse(o, p);
-
-                if (MinecraftClient.getInstance().player != null) {
-                    MinecraftClient.getInstance().player.changeLookDirection(o, p * (double)q);
-                }
-
-                info.cancel();
+            int q = 1;
+            if (options.invertYMouse) {
+                q = -1;
             }
+
+            SpyZoom.instance.getTutorialManager().onUpdateMouse(o, p);
+
+            player.changeLookDirection(o, p * (double)q);
+
+            info.cancel();
         }
     }
 

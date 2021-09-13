@@ -1,7 +1,6 @@
 package net.cobrasrock.spyzoom.mixin;
 
 import net.cobrasrock.spyzoom.SpyZoom;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -14,8 +13,8 @@ public abstract class GameRendererMixin {
     //zooms in screen
     @Inject(at = @At("HEAD"), method = "updateMovementFovMultiplier", cancellable = true)
     private void updateMovementFovMultiplier(CallbackInfo info) {
-        if(MinecraftClient.getInstance().player != null) {
-            if (MinecraftClient.getInstance().player.isUsingSpyglass() && MinecraftClient.getInstance().options.getPerspective().isFirstPerson()) {
+        if(SpyZoom.instance.player != null) {
+            if (SpyZoom.instance.player.isUsingSpyglass() && SpyZoom.instance.options.getPerspective().isFirstPerson()) {
 
                 setLastMovementFovMultiplier(getFovMultiplier());
                 setFovMultiplier(getFovMultiplier() + (SpyZoom.zoom - getFovMultiplier()) * 0.5F);

@@ -1,7 +1,6 @@
 package net.cobrasrock.spyzoom.mixin;
 
 import net.cobrasrock.spyzoom.SpyZoom;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerInventory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class PlayerInventoryMixin {
 	@Inject(at = @At("HEAD"), method = "scrollInHotbar", cancellable = true)
 	private void scrollInHotbar(double scrollAmount, CallbackInfo info) {
-		if(MinecraftClient.getInstance().player != null) {
-			if (MinecraftClient.getInstance().player.isUsingSpyglass() && MinecraftClient.getInstance().options.getPerspective().isFirstPerson()) {
+		if(SpyZoom.instance.player != null) {
+			if (SpyZoom.instance.player.isUsingSpyglass() && SpyZoom.instance.options.getPerspective().isFirstPerson()) {
 				//zooms in/out
 				if (scrollAmount > 0.0D) {
 					SpyZoom.zoom *= 9.0 /10;
