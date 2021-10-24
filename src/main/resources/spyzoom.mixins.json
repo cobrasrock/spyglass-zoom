@@ -6,7 +6,8 @@
   "client": [
     "PlayerInventoryMixin",
     "MouseMixin",
-    "GameRendererMixin"
+    "GameRendererMixin",
+    "SpyglassItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
