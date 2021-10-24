@@ -11,7 +11,7 @@ import net.minecraft.item.SpyglassItem;
 @Mixin(SpyglassItem.class)
 public class SpyglassItemMixin {
   @Inject(method = "onStoppedUsing", at = @At("HEAD"))
-  private void resestZoom(CallbackInfo ci) {
+  private void resetZoom(CallbackInfo ci) {
     SpyZoom.zoom = 0.1f;
   }
 }
