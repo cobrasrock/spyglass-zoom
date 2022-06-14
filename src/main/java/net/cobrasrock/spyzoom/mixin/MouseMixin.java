@@ -23,7 +23,7 @@ public abstract class MouseMixin {
 
         if (player.isUsingSpyglass() && options.getPerspective().isFirstPerson()) {
 
-            double f = options.mouseSensitivity * 0.6000000238418579D + 0.20000000298023224D;
+            double f = options.getMouseSensitivity().getValue() * 0.6000000238418579D + 0.20000000298023224D;
             double g = f * f * f;
 
             //janky calculation that probably isn't right but works
@@ -38,7 +38,7 @@ public abstract class MouseMixin {
             setCursorDeltaY(0.0D);
 
             int q = 1;
-            if (options.invertYMouse) {
+            if (options.getInvertYMouse().getValue()) {
                 q = -1;
             }
 
