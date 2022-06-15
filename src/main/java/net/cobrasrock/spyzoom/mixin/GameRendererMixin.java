@@ -11,12 +11,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin {
     //zooms in screen
-    @Inject(at = @At("HEAD"), method = "updateMovementFovMultiplier", cancellable = true)
-    private void updateMovementFovMultiplier(CallbackInfo info) {
+    @Inject(at = @At("HEAD"), method = "updateFovMultiplier", cancellable = true)
+    private void updateFovMultiplier(CallbackInfo info) {
         if(SpyZoom.instance.player != null) {
             if (SpyZoom.instance.player.isUsingSpyglass() && SpyZoom.instance.options.getPerspective().isFirstPerson()) {
 
-                setLastMovementFovMultiplier(getFovMultiplier());
+                setLastFovMultiplier(getFovMultiplier());
                 setFovMultiplier(getFovMultiplier() + (SpyZoom.zoom - getFovMultiplier()) * 0.5F);
 
                 info.cancel();
@@ -24,12 +24,12 @@ public abstract class GameRendererMixin {
         }
     }
 
-    @Accessor(value = "movementFovMultiplier")
+    @Accessor(value = "fovMultiplier")
     public abstract void setFovMultiplier(float fov);
 
-    @Accessor(value = "movementFovMultiplier")
+    @Accessor(value = "fovMultiplier")
     public abstract float getFovMultiplier();
 
-    @Accessor(value = "lastMovementFovMultiplier")
-    public abstract void setLastMovementFovMultiplier(float fov);
+    @Accessor(value = "lastFovMultiplier")
+    public abstract void setLastFovMultiplier(float fov);
 }
